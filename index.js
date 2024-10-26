@@ -1,1 +1,1 @@
-    window.location.href = "https://weibo.com"
+    window.location.href = "https://4399.com"
