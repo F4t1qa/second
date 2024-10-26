@@ -1,1 +1,1 @@
-    window.location.href = "https://baidu.com"
+    window.location.href = "https://360.com"
