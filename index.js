@@ -1,1 +1,1 @@
-    window.location.href = "https://qq.com"
+    window.location.href = "https://weibo.com"
