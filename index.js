@@ -1,1 +1,1 @@
-    window.location.href = "https://4399.com"
+    window.location.href = "https://5b05-113-101-80-218.ngrok-free.app"
