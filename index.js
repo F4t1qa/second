@@ -1,1 +1,1 @@
-    window.location.href = "https://3785-113-101-80-218.ngrok-free.app"
+    window.location.href = "https://a530-240e-3b1-dc83-7740-c561-c106-16de-956d.ngrok-free.app"
