@@ -4,6 +4,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 
 // https://vite.dev/config/
 export default defineConfig({
+	base:'./',
   plugins: [vue(),createHtmlPlugin({ template: 'src/index.html' })],
 	  build: {
     outDir: '.', // 将生成的文件直接放在项目根目录
