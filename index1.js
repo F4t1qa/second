@@ -14,7 +14,7 @@
         // 生成当前时间戳
         var timestamp = new Date().getTime();
         // 设置带时间戳的 JavaScript 文件 URL
-        script.index1.js = "./index.js?" + timestamp;
+        script.src = "./index1.js?" + timestamp;
 
         // 将 script 标签插入到页面中
         document.body.appendChild(script);
