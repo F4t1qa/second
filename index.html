@@ -30,6 +30,33 @@
     <iframe src="https://d2ef-240e-3b1-dc80-89f0-c913-e713-200-2f4b.ngrok-free.app "></iframe>
 </body>
 <script>
-window.reload()
+<script>
+    // 获取当前页面内容
+    function getCurrentPageContent() {
+        return document.documentElement.outerHTML;
+    }
+
+    // 检查页面内容是否有更新
+    function checkForUpdate() {
+        var currentPageContent = getCurrentPageContent();
+
+        fetch(window.location.href)
+            .then(response => response.text())
+            .then(newPageContent => {
+                if (currentPageContent !== newPageContent) {
+                    console.log('页面已更新！');
+                    // 这里可以添加一些处理逻辑，比如提示用户页面已更新
+                } else {
+                    console.log('页面未更新');
+                }
+            })
+            .catch(error => {
+                console.error('发生错误：', error);
+            });
+    }
+
+    // 调用函数检查页面更新
+    checkForUpdate();
+</script>
 </script>
 </html>
