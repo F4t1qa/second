@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F4t1qa转化</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 40vh; 
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .action-buttons button {
+            flex: 1;
+            min-width: 120px;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+            color: #4CAF50;
+            display: none;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            textarea {
+                height: 30vh;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>F4t1qa转化</h1>
+    <label for="input-urls">请输入需要转换的链接（每行一个）：</label>
+    <textarea id="input-urls" placeholder="每行输入一个链接，如：https://mobile.yangkeduo.com/goods1.html?goods_id=123456"></textarea>
+    <button onclick="convertLinks()">转换链接</button>
+    
+    <div class="action-buttons" id="action-buttons" style="display: none;">
+        <button onclick="copyToClipboard()">复制到剪贴板</button>
+        <button onclick="exportToFile()">导出为文本文件</button>
+    </div>
+
+    <p class="message" id="success-message">链接已成功转换！</p>
+</div>
+
+<script>
+    const actionButtons = document.getElementById('action-buttons');
+    const successMessage = document.getElementById('success-message');
+    let convertedLinks = [];
+
+    // 转换链接函数
+    function convertLinks() {
+        const inputUrls = document.getElementById('input-urls').value.trim();
+        if (!inputUrls) {
+            alert('请输入需要转换的链接');
+            return;
+        }
+
+        convertedLinks = [];
+        const urls = inputUrls.split('\n').map(url => url.trim());
+        const newUrlTemplate = 'https://mobile.yangkeduo.com/goods.html?goods_id={goods_id}' +
+            '&_oak_rcto=YWJCI9W0M9pVpwKc_TbgxP2xJJvYh74W8jE&page_from=39&_oc_trace_mark=199&is_spike=0&_x_query=源氏木语官方旗舰店&refer_page_name=mall_page&refer_page_id=10039_1734324292213_skwkmd8h8c&refer_page_sn=10039&uin=CYN7JYZ533PIGSES2G7LAEPYAU_GEXDA';
+
+        urls.forEach(url => {
+            const match = url.match(/goods_id=(\d+)/);
+            if (match) {
+                const goodsId = match[1];
+                const newUrl = newUrlTemplate.replace('{goods_id}', goodsId);
+                convertedLinks.push(newUrl);
+            }
+        });
+
+        if (convertedLinks.length) {
+            actionButtons.style.display = 'flex';
+            successMessage.style.display = 'block';
+        } else {
+            actionButtons.style.display = 'none';
+            successMessage.style.display = 'none';
+            alert('没有有效的链接可以转换');
+        }
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard() {
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = convertedLinks.join('\n');
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+        alert('链接已复制到剪贴板！');
+    }
+
+    // 导出为文本文件
+    function exportToFile() {
+        const blob = new Blob([convertedLinks.join('\n')], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = '转换后的商品链接.txt';
+        link.click();
+    }
+</script>
+
+</body>
+</html>
